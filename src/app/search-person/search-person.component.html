@@ -1,0 +1,44 @@
+<section class="person-search-section">
+  <h2>Search person by personal Id and date of birth</h2>
+  <form>
+    <div class="form-group">
+      <label> Personal Id
+      <input [(ngModel)]="personalId" name="personalId" type="text" placeholder="123456-123456" class="form-control">
+      </label><br>
+    </div>
+    <pre></pre>
+    <div class="form-group">
+      <label>Date of birth
+        <input [(ngModel)]="dateOfBirth" name="dateOfBirth" type="text" placeholder="YYYY-mm-dd" class="form-control">
+      </label><br>
+    </div>
+    <pre></pre>
+    <button [disabled]="!personalId || !dateOfBirth " (click)="searchPerson()"  class="search-btn" type="button">Search</button>
+
+
+  </form>
+</section>
+
+<section *ngIf="person$ | async as person" class="result-section">
+  <h2>Result Table</h2>
+  <table aria-describedby="Person table" class="table">
+    <thead>
+    <tr>
+      <th *ngFor="let title of columnTitles">{{title}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{person.personalId}}</td>
+      <td>{{person.firstName}}</td>
+      <td>{{person.lastName}}</td>
+      <td>{{person.gender}}</td>
+      <td>{{person.dateOfBirth}}</td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<section *ngIf="error$ | async as error" class="not-found-section">
+<h3 >{{error}}</h3>
+</section>
